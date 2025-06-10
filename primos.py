@@ -1,22 +1,28 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
-# @Autor: Laudemir Ap. de Oliveira
+# @Autor: Laudemir Oliveira
+# @E-mail: laudemir.oliveira@gmail.com
+# @Date: 2024-05-16 Thursday
 #
+#
+def crivo_eratostenes(n):
+    # inicializa uma lista de booleanos
+    primos = [True] * (n+1)
+    p = 2
 
-def is_prime(n):
-    p=0
-    for i in range(1, n):
-        if n % i == 0:
-            p+=1;
-        if p>1:
-            print('{} nao eh numero primo'.format(n))
-            break
-    if p == 1:
-        print('{} eh numero primo'.format(n))
+    while (p * p <= n):
+        # Se primos[p] não for alterado, então é um número primo
+        if primos[p]: 
+            # Atualiza todos os múltiplos de p para False
+            for i in range(p * p, n + 1, p):
+                primos[i] = False
+        p += 1
 
-i = int(input("Um inteiro positivo: "))
-is_prime(i)
-print('Tchau!')
+        # Coleta todos os números primos
+        numeros_primos = [p for p in range(2, n + 1) if primos[p]]
+        return numeros_primos
 
+# Exemplo de uso
+n = int(input("Qual o limite gafanhoto? "))
+print(f"Numeros primos até {n}: {crivo_eratostenes(n)}")
 
